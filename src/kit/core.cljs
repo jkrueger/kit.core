@@ -1,4 +1,5 @@
-(ns kit.core)
+(ns kit.core
+  (:require-macros [kit.core :as core]))
 
 (def clj->json (comp js/JSON.stringify clj->js))
 
@@ -12,3 +13,8 @@
 
 (defn enable-source-maps []
   (.install (js/require "source-map-support")))
+
+(defn module-system?
+  "Checks if a CommonJS style module system is present"
+  []
+  (and (core/exists? js/module) (.-exports js/module)))
